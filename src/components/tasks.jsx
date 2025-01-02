@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const TodoCard = () => {
+const TodoCard = ({ isDarkTheme }) => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
 
@@ -26,7 +26,7 @@ const TodoCard = () => {
   };
 
   return (
-    <StyledWrapper>
+    <StyledWrapper isDarkTheme={isDarkTheme}>
       <div className="card">
         <div className="content">
           <div className="title">To-Do List</div>
@@ -47,7 +47,7 @@ const TodoCard = () => {
               type="text" 
               value={taskInput} 
               onChange={(e) => setTaskInput(e.target.value)} 
-              onKeyDown={handleKeyDown}  // Added keydown event listener
+              onKeyDown={handleKeyDown}
               placeholder="Add a new task" 
             />
             <button onClick={handleAddTask}>Add Task</button>
@@ -73,8 +73,8 @@ const StyledWrapper = styled.div`
     cursor: pointer;
     box-shadow: 0 10px 15px -3px rgba(33,150,243,.4), 0 4px 6px -4px rgba(33,150,243,.4);
     border-radius: 10px;
-    background-color: rgba(107, 110, 204, 0.7);  /* Adjusted opacity of the background */
-    background: linear-gradient(45deg, rgba(4, 5, 29, 0.3) 0%, rgba(21, 27, 35, 1) 100%); /* Adjusted opacity of the gradient */
+    background-color: ${({ isDarkTheme }) => isDarkTheme ? 'rgba(107, 110, 204, 0.7)' : 'linear-gradient(225deg, #FFFFFF, #85C1E9)'};
+    background: ${({ isDarkTheme }) => isDarkTheme ? 'linear-gradient(45deg, rgba(4, 5, 29, 0.3) 0%, rgba(21, 27, 35, 1) 100%)' : 'linear-gradient(45deg, #85C1E9, #FFFFFF)'};
   }
 
   .content {
@@ -101,21 +101,22 @@ const StyledWrapper = styled.div`
     align-items: flex-start;
     width: 100%;
     margin-bottom: 20px;
-    max-height: 300px; /* Set fixed height for the task area */
-    overflow-y: auto; /* Enable scrolling if tasks exceed max height */
+    max-height: 300px; 
+    overflow-y: auto; 
+    margin-left:40px;
   }
 
   .task {
     display: flex;
     align-items: center;
     margin: 5px 0;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;  /* Increased font size */
+    color: ${({ isDarkTheme }) => isDarkTheme ? 'white' : 'black'}; /* Dynamic color */
   }
 
   .task.completed span {
     text-decoration: line-through;
-    color: rgba(255, 255, 255, 0.4);
+    color: ${({ isDarkTheme }) => isDarkTheme ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)'}; /* Dimmed color for completed tasks */
   }
 
   input[type="checkbox"] {

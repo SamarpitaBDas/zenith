@@ -29,7 +29,7 @@ function HomePage() {
                 top:"20px",
             }}
         >
-            <TodoCard />
+            <TodoCard isDarkTheme={isDarkTheme} /> 
         </div>
         
         <div 
