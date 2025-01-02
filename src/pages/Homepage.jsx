@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ToggleButton from '../components/toggle_button'; 
 import dark_bg from '../assets/possible_bg.svg';
 import light_bg from '../assets/light_bg.jpg';
+import TodoCard from '../components/tasks';
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -21,7 +22,16 @@ function HomePage() {
         height: '100vh',
         position: 'relative', 
       }}
-    >
+    >   
+        <div
+            style={{
+                position:"absolute",
+                top:"20px",
+            }}
+        >
+            <TodoCard />
+        </div>
+        
         <div 
           className="toggle_button" 
           style={{
