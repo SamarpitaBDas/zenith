@@ -4,6 +4,7 @@ import ToggleButton from '../components/toggle_button';
 import dark_bg from '../assets/possible_bg.svg';
 import light_bg from '../assets/light_bg.jpg';
 import TodoCard from '../components/tasks';
+import Scheduler from '../components/scheduler';
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -30,6 +31,10 @@ function HomePage() {
             }}
         >
             <TodoCard isDarkTheme={isDarkTheme} /> 
+        </div>
+
+        <div >
+            <Scheduler />
         </div>
         
         <div 
