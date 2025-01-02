@@ -33,7 +33,11 @@ function HomePage() {
             <TodoCard isDarkTheme={isDarkTheme} /> 
         </div>
 
-        <div >
+        <div 
+        style={{
+            position:"absolute",
+            top:"20px",
+        }}>
             <Scheduler isDarkTheme={isDarkTheme} />
         </div>
         

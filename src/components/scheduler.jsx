@@ -99,6 +99,14 @@ const Scheduler = ({ isDarkTheme }) => {
     setNewEvent({})
   }
 
+  // Custom toolbar to remove default navigation buttons
+  const CustomToolbar = () => {
+    return (
+      <div className="custom-toolbar">
+      </div>
+    )
+  }
+
   return (
     <StyledWrapper isDarkTheme={isDarkTheme}>
       <div className="card">
@@ -118,67 +126,73 @@ const Scheduler = ({ isDarkTheme }) => {
             resizable
             defaultView={Views.DAY}
             views={[Views.DAY]}
-            className={`h-full ${isDarkTheme ? 'rbc-dark-theme' : ''}`}
+            className={`h-full ${isDarkTheme ? 'rbc-dark-theme' : ''} calendar-resized`}
             eventPropGetter={(event) => ({
               className: event.color,
             })}
             step={15}
             timeslots={4}
+            components={{
+              toolbar: CustomToolbar,  // Use the custom toolbar
+            }}
           />
 
-          {/* Dialog for Add/Edit Event */}
-          <Dialog open={showModal} onOpenChange={(open) => setShowModal(open)} style={{ minWidth: '400px' }}>
-            <Dialog.Content>
-              <Dialog.Header>
-                <Dialog.Title>{newEvent.id ? 'Edit Event' : 'Add Event'}</Dialog.Title>
-              </Dialog.Header>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="title" className="text-right">
-                    Title
-                  </Label>
-                  <Input
-                    id="title"
-                    value={newEvent.title || ''}
-                    onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="start" className="text-right">
-                    Start
-                  </Label>
-                  <Input
-                    id="start"
-                    type="time"
-                    value={newEvent.start ? moment(newEvent.start).format('HH:mm') : ''}
-                    onChange={(e) => setNewEvent({ ...newEvent, start: moment(newEvent.start).set({ hour: e.target.value.split(':')[0], minute: e.target.value.split(':')[1] }).toDate() })}
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="end" className="text-right">
-                    End
-                  </Label>
-                  <Input
-                    id="end"
-                    type="time"
-                    value={newEvent.end ? moment(newEvent.end).format('HH:mm') : ''}
-                    onChange={(e) => setNewEvent({ ...newEvent, end: moment(newEvent.end).set({ hour: e.target.value.split(':')[0], minute: e.target.value.split(':')[1] }).toDate() })}
-                    className="col-span-3"
-                  />
-                </div>
-              </div>
-              <Dialog.Footer>
-                {newEvent.id && (
-                  <Button variant="destructive" onClick={handleDeleteEvent}>
-                    Delete
-                  </Button>
-                )}
-                <Button onClick={handleSaveEvent}>Save</Button>
-              </Dialog.Footer>
-            </Dialog.Content>
-          </Dialog>
+          {showModal && (
+            <DialogWrapper>
+              <Dialog open={showModal} onOpenChange={(open) => setShowModal(open)}>
+                <Dialog.Content>
+                  <Dialog.Header>
+                    <Dialog.Title>{newEvent.id ? 'Edit Event' : 'Add Event'}</Dialog.Title>
+                  </Dialog.Header>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="title" className="text-right">
+                        Title
+                      </Label>
+                      <Input
+                        id="title"
+                        value={newEvent.title || ''}
+                        onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="start" className="text-right">
+                        Start
+                      </Label>
+                      <Input
+                        id="start"
+                        type="time"
+                        value={newEvent.start ? moment(newEvent.start).format('HH:mm') : ''}
+                        onChange={(e) => setNewEvent({ ...newEvent, start: moment(newEvent.start).set({ hour: e.target.value.split(':')[0], minute: e.target.value.split(':')[1] }).toDate() })}
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="end" className="text-right">
+                        End
+                      </Label>
+                      <Input
+                        id="end"
+                        type="time"
+                        value={newEvent.end ? moment(newEvent.end).format('HH:mm') : ''}
+                        onChange={(e) => setNewEvent({ ...newEvent, end: moment(newEvent.end).set({ hour: e.target.value.split(':')[0], minute: e.target.value.split(':')[1] }).toDate() })}
+                        className="col-span-3"
+                      />
+                    </div>
+                  </div>
+                  <Dialog.Footer>
+                    {newEvent.id && (
+                      <Button variant="destructive" onClick={handleDeleteEvent}>
+                        Delete
+                      </Button>
+                    )}
+                    <Button onClick={handleSaveEvent}>Save</Button>
+                  </Dialog.Footer>
+                </Dialog.Content>
+              </Dialog>
+            </DialogWrapper>
+          )}
         </div>
       </div>
     </StyledWrapper>
@@ -197,8 +211,8 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    width: 600px;
-    height: 700px;
+    width: 550px;
+    height: 700px;  // Keep card size unchanged
     padding: 20px;
     margin: 0 30px;
     text-align: center;
@@ -211,7 +225,7 @@ const StyledWrapper = styled.div`
   }
 
   .content {
-    padding: 20px;
+    padding: 0;  // Remove unnecessary padding
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -223,8 +237,39 @@ const StyledWrapper = styled.div`
     font-weight: 800;
     text-transform: uppercase;
     color: rgba(45, 110, 218, 255);
-    margin-bottom: 20px;
+    margin-bottom: 10px;  // Reduce margin to avoid space
     font-size: 25px;
     letter-spacing: 1px;
   }
+
+  .calendar-resized {
+    transform: scale(0.9); 
+    margin-top: 0;  
+  }
+
+  .custom-toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .custom-toolbar h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+`;
+
+const DialogWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
 `;
