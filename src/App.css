@@ -3,11 +3,4 @@ html, body {
   margin: 0;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; 
-  align-items: center;
-  height: 95vh;      
-}
 
