@@ -15,56 +15,53 @@ function HomePage() {
   };
 
   return (
-    <div>
-        <Scheduler isDarkTheme={isDarkTheme} />
-    </div>
-    // <div
-    //   className="background-container" 
-    //   style={{
-    //     backgroundImage: `url(${backgroundImage})`,
-    //     backgroundSize: 'cover',
-    //     height: '100vh',
-    //     position: 'relative', 
-    //   }}
-    // >   
-    //     <div
-    //         style={{
-    //             position:"absolute",
-    //             top:"20px",
-    //         }}
-    //     >
-    //         <TodoCard isDarkTheme={isDarkTheme} /> 
-    //     </div>
+    <div
+      className="background-container" 
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        height: '100vh',
+        position: 'relative', 
+      }}
+    >   
+        <div
+            style={{
+                position:"absolute",
+                top:"20px",
+            }}
+        >
+            <TodoCard isDarkTheme={isDarkTheme} /> 
+        </div>
 
-    //     <div >
-    //         <Scheduler />
-    //     </div>
+        <div >
+            <Scheduler isDarkTheme={isDarkTheme} />
+        </div>
         
-    //     <div 
-    //       className="toggle_button" 
-    //       style={{
-    //         position: 'absolute',
-    //         top: '20px', 
-    //         right: '20px',
-    //         zIndex: 10, 
-    //       }}
-    //     >
-    //         <ToggleButton toggleTheme={toggleTheme}/>
-    //     </div>
+        <div 
+          className="toggle_button" 
+          style={{
+            position: 'absolute',
+            top: '20px', 
+            right: '20px',
+            zIndex: 10, 
+          }}
+        >
+            <ToggleButton toggleTheme={toggleTheme}/>
+        </div>
         
-    //     <div 
-    //       className="navbar" 
-    //       style={{
-    //         position: 'absolute',
-    //         left:'50%',
-    //         bottom:20,
-    //         transform: 'translateX(-50%)', 
-    //         zIndex: 5, 
-    //       }}
-    //     >
-    //         <Navbar /> 
-    //     </div>
-    // </div>
+        <div 
+          className="navbar" 
+          style={{
+            position: 'absolute',
+            left:'50%',
+            bottom:20,
+            transform: 'translateX(-50%)', 
+            zIndex: 5, 
+          }}
+        >
+            <Navbar /> 
+        </div>
+    </div>
   );
 }
 
