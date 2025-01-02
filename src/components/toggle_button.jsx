@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const Switch = ({ toggleTheme }) => {
   return (
     <StyledWrapper>
-      <label className="theme-switch">
+      <label className="theme-switch"
+      >
         <input 
         type="checkbox" 
         className="theme-switch__checkbox" 
@@ -37,14 +38,14 @@ const StyledWrapper = styled.div`
     /* the size is adjusted using font-size,
        this is not transform scale,
        so you can choose any size */
-    --container-width: 5.625em;
-    --container-height: 2.5em;
-    --container-radius: 6.25em;
+    --container-width: 3em;
+    --container-height: 1.5em;
+    --container-radius: 2em;
     /* radius 0 - minecraft mode :) */
     --container-light-bg: #3D7EAE;
     --container-night-bg: #1D1F2C;
-    --circle-container-diameter: 3.375em;
-    --sun-moon-diameter: 2.125em;
+    --circle-container-diameter: 1em;
+    --sun-moon-diameter: 1em;
     --sun-bg: #ECCA2F;
     --moon-bg: #C4C9D1;
     --spot-color: #959DB1;
