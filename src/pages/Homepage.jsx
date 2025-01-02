@@ -5,6 +5,7 @@ import dark_bg from '../assets/possible_bg.svg';
 import light_bg from '../assets/light_bg.jpg';
 import TodoCard from '../components/tasks';
 import Scheduler from '../components/scheduler';
+import Pomodoro from '../components/pomodoro';
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -39,6 +40,7 @@ function HomePage() {
       >
         <TodoCard isDarkTheme={isDarkTheme} /> 
         <Scheduler isDarkTheme={isDarkTheme} />
+        <Pomodoro isDarkTheme={isDarkTheme} />
       </div>
 
       <div 
