@@ -19,6 +19,12 @@ const TodoCard = () => {
     setTasks(updatedTasks);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleAddTask();
+    }
+  };
+
   return (
     <StyledWrapper>
       <div className="card">
@@ -41,6 +47,7 @@ const TodoCard = () => {
               type="text" 
               value={taskInput} 
               onChange={(e) => setTaskInput(e.target.value)} 
+              onKeyDown={handleKeyDown}  // Added keydown event listener
               placeholder="Add a new task" 
             />
             <button onClick={handleAddTask}>Add Task</button>
@@ -58,27 +65,31 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 400px;
-    height:700px;
+    height: 700px;
     padding: 20px 1px;
     margin: 0 30px;
     text-align: center;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(33,150,243,.4),0 4px 6px -4px rgba(33,150,243,.4);
+    box-shadow: 0 10px 15px -3px rgba(33,150,243,.4), 0 4px 6px -4px rgba(33,150,243,.4);
     border-radius: 10px;
-    background-color: #6B6ECC;
-    background: linear-gradient(45deg, #04051dea 0%, #2b566e 100%);
+    background-color: rgba(107, 110, 204, 0.7);  /* Adjusted opacity of the background */
+    background: linear-gradient(45deg, rgba(4, 5, 29, 0.3) 0%, rgba(21, 27, 35, 1) 100%); /* Adjusted opacity of the gradient */
   }
 
   .content {
     padding: 20px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 
   .content .title {
     font-weight: 800;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.64);
+    color: rgba(45, 110, 218, 255);
     margin-bottom: 20px;
     font-size: 25px;
     letter-spacing: 1px;
@@ -90,6 +101,8 @@ const StyledWrapper = styled.div`
     align-items: flex-start;
     width: 100%;
     margin-bottom: 20px;
+    max-height: 300px; /* Set fixed height for the task area */
+    overflow-y: auto; /* Enable scrolling if tasks exceed max height */
   }
 
   .task {
