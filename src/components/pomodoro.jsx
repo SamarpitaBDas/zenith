@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import Start from './ui/Start';  // Import Start component
+import Button from './ui/FullScreen';  // Import Button component
 
 const Pomodoro = ({ isDarkTheme }) => {
   const [minutes, setMinutes] = useState(25);
@@ -7,16 +9,14 @@ const Pomodoro = ({ isDarkTheme }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  
+
   const intervalRef = useRef(null);
 
-  // Handle countdown logic
   useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
         if (seconds === 0) {
           if (minutes === 0) {
-            // Switch between work and break
             if (isBreak) {
               setMinutes(25);
               setIsBreak(false);
@@ -69,12 +69,10 @@ const Pomodoro = ({ isDarkTheme }) => {
         </div>
 
         <div className="controls">
-          <button onClick={handleStartStop} className="start-stop">
-            {isRunning ? 'Pause' : 'Start'}
-          </button>
-          <button onClick={toggleFullScreen} className="fullscreen">
-            {isFullScreen ? 'Exit Full Screen' : 'Full Screen'}
-          </button>
+          <Start isRunning={isRunning} handleStartStop={handleStartStop} 
+          style={{
+            top:"40px",
+          }}/> 
         </div>
       </div>
     </StyledWrapper>
@@ -85,16 +83,14 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: ${({ isDarkTheme }) => (isDarkTheme ? '#2d2d2d' : '#f3f4f6')};
-  
+
   .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 400px;
-    height: 400px;
+    height: 200px;
     background: ${({ isDarkTheme }) =>
       isDarkTheme
         ? 'linear-gradient(45deg, rgba(4, 5, 29, 0.3) 0%, rgba(21, 27, 35, 1) 100%)'
@@ -117,26 +113,6 @@ const StyledWrapper = styled.div`
   .controls {
     display: flex;
     gap: 20px;
-  }
-
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-  }
-
-  .start-stop {
-    background-color: ${({ isDarkTheme }) =>
-      isDarkTheme ? '#4CAF50' : '#28a745'};
-    color: #fff;
-  }
-
-  .fullscreen {
-    background-color: ${({ isDarkTheme }) =>
-      isDarkTheme ? '#FF6347' : '#ff6347'};
-    color: #fff;
   }
 `;
 

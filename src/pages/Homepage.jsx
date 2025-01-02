@@ -6,6 +6,7 @@ import light_bg from '../assets/light_bg.jpg';
 import TodoCard from '../components/tasks';
 import Scheduler from '../components/scheduler';
 import Pomodoro from '../components/pomodoro';
+import Tracker from '../components/tracker';
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -28,7 +29,7 @@ function HomePage() {
       
       <div
         style={{
-          position: 'absolute',
+          position: 'relative',
           top: '20px',
           left: '50%',
           transform: 'translateX(-50%)',
@@ -40,7 +41,19 @@ function HomePage() {
       >
         <TodoCard isDarkTheme={isDarkTheme} /> 
         <Scheduler isDarkTheme={isDarkTheme} />
-        <Pomodoro isDarkTheme={isDarkTheme} />
+          <div 
+          style={{
+            position: 'absolute',
+            top: '20px',
+            left: '70%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}>
+            <Pomodoro isDarkTheme={isDarkTheme} />
+            <Tracker isDarkTheme={isDarkTheme}/>
+          </div>
       </div>
 
       <div 
