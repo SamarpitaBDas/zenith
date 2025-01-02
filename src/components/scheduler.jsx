@@ -212,7 +212,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 550px;
-    height: 700px;  // Keep card size unchanged
+    height: 700px;
     padding: 20px;
     margin: 0 30px;
     text-align: center;
@@ -225,7 +225,7 @@ const StyledWrapper = styled.div`
   }
 
   .content {
-    padding: 0;  // Remove unnecessary padding
+    padding: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -237,7 +237,7 @@ const StyledWrapper = styled.div`
     font-weight: 800;
     text-transform: uppercase;
     color: rgba(45, 110, 218, 255);
-    margin-bottom: 10px;  // Reduce margin to avoid space
+    margin-bottom: 10px;
     font-size: 25px;
     letter-spacing: 1px;
   }
@@ -258,15 +258,42 @@ const StyledWrapper = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
+
+  .rbc-calendar {
+    background-color: ${({ isDarkTheme }) => isDarkTheme ? '#2d2d2d' : 'transparent'};  /* Background for calendar */
+  }
+
+  .rbc-day-bg {
+    background-color: ${({ isDarkTheme }) => isDarkTheme ? '#505050' : '#f3f4f6'};  /* Dark gray for day boxes in dark theme */
+  }
+  
+  .rbc-day-header {
+    background-color: ${({ isDarkTheme }) => isDarkTheme ? '#4b4b4b' : '#e5e7eb'};  /* Lighter gray for headers in dark theme */
+  }
+
+  .rbc-header {
+    color: ${({ isDarkTheme }) => isDarkTheme ? '#d1d5db' : '#4b5563'};  /* Text color for header */
+  }
+
+  
+  .rbc-event {
+    background-color: ${({ isDarkTheme }) => isDarkTheme ? '#6b7280' : '#ffffff'};
+    color: ${({ isDarkTheme }) => isDarkTheme ? '#e5e7eb' : '#000000'};
+    border: ${({ isDarkTheme }) => isDarkTheme ? '1px solid #4b5563' : '1px solid #d1d5db'};
+  }
+
+  .rbc-time-column {
+    color: ${({ isDarkTheme }) => isDarkTheme ? '#ffffff' : '#000000'};
+  }
 `;
 
 const DialogWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  width: 20vw;
+  height: 20vh;
+  background: ${({ isDarkTheme }) => (isDarkTheme ? "#4b5563" : 'aliceblue')};
   display: flex;
   justify-content: center;
   align-items: center;

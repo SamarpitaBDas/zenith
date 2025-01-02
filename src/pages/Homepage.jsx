@@ -24,47 +24,47 @@ function HomePage() {
         position: 'relative', 
       }}
     >   
-        <div
-            style={{
-                position:"absolute",
-                top:"20px",
-            }}
-        >
-            <TodoCard isDarkTheme={isDarkTheme} /> 
-        </div>
-
-        <div 
+      
+      <div
         style={{
-            position:"absolute",
-            top:"20px",
-        }}>
-            <Scheduler isDarkTheme={isDarkTheme} />
-        </div>
-        
-        <div 
-          className="toggle_button" 
-          style={{
-            position: 'absolute',
-            top: '20px', 
-            right: '20px',
-            zIndex: 10, 
-          }}
-        >
-            <ToggleButton toggleTheme={toggleTheme}/>
-        </div>
-        
-        <div 
-          className="navbar" 
-          style={{
-            position: 'absolute',
-            left:'50%',
-            bottom:20,
-            transform: 'translateX(-50%)', 
-            zIndex: 5, 
-          }}
-        >
-            <Navbar /> 
-        </div>
+          position: 'absolute',
+          top: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',  
+          gap: '30px',  
+        }}
+      >
+        <TodoCard isDarkTheme={isDarkTheme} /> 
+        <Scheduler isDarkTheme={isDarkTheme} />
+      </div>
+
+      <div 
+        className="toggle_button" 
+        style={{
+          position: 'absolute',
+          top: '20px', 
+          right: '20px',
+          zIndex: 10, 
+        }}
+      >
+        <ToggleButton toggleTheme={toggleTheme}/>
+      </div>
+      
+      <div 
+        className="navbar" 
+        style={{
+          position: 'absolute',
+          left:'50%',
+          bottom: 20,
+          transform: 'translateX(-50%)', 
+          zIndex: 5, 
+        }}
+      >
+        <Navbar /> 
+      </div>
     </div>
   );
 }
