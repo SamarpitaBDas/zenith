@@ -34,7 +34,7 @@ function HomePage() {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',  
-          gap: '30px',  
+          gap: '10px',  
         }}
       >
         <TodoCard isDarkTheme={isDarkTheme} /> 

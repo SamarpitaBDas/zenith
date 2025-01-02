@@ -266,7 +266,7 @@ const StyledWrapper = styled.div`
   .rbc-day-bg {
     background-color: ${({ isDarkTheme }) => isDarkTheme ? '#505050' : '#f3f4f6'};  /* Dark gray for day boxes in dark theme */
   }
-  
+
   .rbc-day-header {
     background-color: ${({ isDarkTheme }) => isDarkTheme ? '#4b4b4b' : '#e5e7eb'};  /* Lighter gray for headers in dark theme */
   }
@@ -275,17 +275,19 @@ const StyledWrapper = styled.div`
     color: ${({ isDarkTheme }) => isDarkTheme ? '#d1d5db' : '#4b5563'};  /* Text color for header */
   }
 
-  
   .rbc-event {
     background-color: ${({ isDarkTheme }) => isDarkTheme ? '#6b7280' : '#ffffff'};
     color: ${({ isDarkTheme }) => isDarkTheme ? '#e5e7eb' : '#000000'};
-    border: ${({ isDarkTheme }) => isDarkTheme ? '1px solid #4b5563' : '1px solid #d1d5db'};
+    border: ${({ isDarkTheme }) => isDarkTheme ? '1px solid #4b5563' : '1px solid #4b5563'};
   }
 
   .rbc-time-column {
-    color: ${({ isDarkTheme }) => isDarkTheme ? '#ffffff' : '#000000'};
+    background-color: ${({ isDarkTheme }) => isDarkTheme ? '#3b3b3b' : 'aliceblue'}; /* Modify this to change the background of the time column */
+    color: ${({ isDarkTheme }) => isDarkTheme ? '#ffffff' : '#000000'}; /* Change text color in the time column */
   }
 `;
+
+
 
 const DialogWrapper = styled.div`
   position: fixed;
