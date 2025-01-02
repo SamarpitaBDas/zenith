@@ -1,214 +1,185 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { useState, useCallback } from 'react'
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import Dialog from "./ui/Dialog"
+import Button from "./ui/Button"
+import Input from "./ui/Input"
+import Label from "./ui/Label"
+
+const localizer = momentLocalizer(moment)
+
+const eventColors = [
+  'bg-red-500',
+  'bg-blue-500',
+  'bg-green-500',
+  'bg-yellow-500',
+  'bg-purple-500',
+]
 
 const Scheduler = ({ isDarkTheme }) => {
-  const [events, setEvents] = useState([]);
-  const [currentEvent, setCurrentEvent] = useState({ time: '', title: '', color: '#007bff', duration: 1 }); // Current event being added
-  
-  // Add new event to a time slot
-  const handleAddEvent = (time) => {
-    setCurrentEvent({ ...currentEvent, time });
-  };
+  const [events, setEvents] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [newEvent, setNewEvent] = useState({})
 
-  // Save the event when a user inputs a title
+  const handleSelectSlot = useCallback(
+    ({ start, end }) => {
+      setNewEvent({
+        title: '',
+        start,
+        end,
+        color: eventColors[Math.floor(Math.random() * eventColors.length)],
+      })
+      setShowModal(true)
+    },
+    []
+  )
+
+  const handleSelectEvent = useCallback(
+    (event) => {
+      setNewEvent(event)
+      setShowModal(true)
+    },
+    []
+  )
+
+  const handleEventResize = useCallback(
+    ({ event, start, end }) => {
+      setEvents((prev) =>
+        prev.map((ev) =>
+          ev.id === event.id
+            ? { ...ev, start, end }
+            : ev
+        )
+      )
+    },
+    []
+  )
+
+  const handleEventDrag = useCallback(
+    ({ event, start, end }) => {
+      setEvents((prev) =>
+        prev.map((ev) =>
+          ev.id === event.id
+            ? { ...ev, start, end }
+            : ev
+        )
+      )
+    },
+    []
+  )
+
   const handleSaveEvent = () => {
-    if (currentEvent.title) {
-      setEvents([...events, currentEvent]);
-      setCurrentEvent({ time: '', title: '', color: '#007bff', duration: 1 }); // Reset after saving
+    if (newEvent.id) {
+      setEvents((prev) =>
+        prev.map((ev) =>
+          ev.id === newEvent.id
+            ? { ...ev, ...newEvent }
+            : ev
+        )
+      )
+    } else {
+      setEvents((prev) => [
+        ...prev,
+        {
+          ...newEvent,
+          id: Date.now(),
+        },
+      ])
     }
-  };
+    setShowModal(false)
+    setNewEvent({})
+  }
 
-  // Handle event drag and update its duration
-  const onDragEnd = (result) => {
-    const { destination, source } = result;
-
-    if (!destination) return;
-
-    // If event is dropped in the same position, no change
-    if (destination.index === source.index) return;
-
-    const reorderedEvents = [...events];
-    const movedEvent = reorderedEvents[source.index];
-
-    // Update the duration based on the drop position (for simplicity, adjusting based on index)
-    movedEvent.duration = Math.abs(destination.index - source.index) + 1;
-    
-    reorderedEvents.splice(source.index, 1);
-    reorderedEvents.splice(destination.index, 0, movedEvent);
-    setEvents(reorderedEvents);
-  };
+  const handleDeleteEvent = () => {
+    setEvents((prev) => prev.filter((ev) => ev.id !== newEvent.id))
+    setShowModal(false)
+    setNewEvent({})
+  }
 
   return (
-    <StyledWrapper isDarkTheme={isDarkTheme}>
-      <div className="card">
-        <div className="content">
-          <h2>Daily Scheduler</h2>
-          <TimeSlots>
-            {[...Array(24)].map((_, index) => {
-              const time = `${index < 10 ? '0' : ''}${index}:00`;
+    <div className={`h-screen p-4 ${isDarkTheme ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        onSelectSlot={handleSelectSlot}
+        onSelectEvent={handleSelectEvent}
+        onEventResize={handleEventResize}
+        onEventDrop={handleEventDrag}
+        selectable={true}
+        resizable
+        defaultView={Views.DAY}
+        views={[Views.DAY]}
+        className={`h-full ${isDarkTheme ? 'rbc-dark-theme' : ''}`}
+        eventPropGetter={(event) => ({
+          className: event.color,
+        })}
+        step={15}
+        timeslots={4}
+      />
 
-              return (
-                <TimeSlot key={time} isDarkTheme={isDarkTheme}>
-                  <span onClick={() => handleAddEvent(time)}>{time}</span>
-                  <Droppable droppableId={time}>
-                    {(provided) => (
-                      <EventList ref={provided.innerRef} {...provided.droppableProps}>
-                        {events
-                          .filter(event => event.time === time)
-                          .map((event, idx) => (
-                            <Draggable key={idx} draggableId={`${time}-${idx}`} index={idx}>
-                              {(provided) => (
-                                <EventItem
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  isDarkTheme={isDarkTheme}
-                                  color={event.color}
-                                  duration={event.duration}
-                                >
-                                  {event.title}
-                                </EventItem>
-                              )}
-                            </Draggable>
-                          ))}
-                        {provided.placeholder}
-                      </EventList>
-                    )}
-                  </Droppable>
-                  {currentEvent.time === time && !currentEvent.title && (
-                    <EventInput
-                      type="text"
-                      placeholder="Event Title"
-                      value={currentEvent.title}
-                      onChange={(e) => setCurrentEvent({ ...currentEvent, title: e.target.value })}
-                      onBlur={handleSaveEvent}
-                    />
-                  )}
-                  {currentEvent.time === time && currentEvent.title && (
-                    <ColorPicker>
-                      <label>Select Color:</label>
-                      <ColorOptions>
-                        {['#007bff', '#ff6347', '#32cd32', '#ff1493'].map(color => (
-                          <ColorOption
-                            key={color}
-                            color={color}
-                            onClick={() => setCurrentEvent({ ...currentEvent, color })}
-                          />
-                        ))}
-                      </ColorOptions>
-                    </ColorPicker>
-                  )}
-                </TimeSlot>
-              );
-            })}
-          </TimeSlots>
-        </div>
-      </div>
-    </StyledWrapper>
-  );
-};
+      <Dialog open={showModal} onOpenChange={(open) => setShowModal(open)}>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>{newEvent.id ? 'Edit Event' : 'Add Event'}</Dialog.Title>
+          </Dialog.Header>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="title" className="text-right">
+                Title
+              </Label>
+              <Input
+                id="title"
+                value={newEvent.title || ''}
+                onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="start" className="text-right">
+                Start
+              </Label>
+              <Input
+                id="start"
+                type="time"
+                value={newEvent.start ? moment(newEvent.start).format('HH:mm') : ''}
+                onChange={(e) => setNewEvent({ ...newEvent, start: moment(newEvent.start).set({ hour: e.target.value.split(':')[0], minute: e.target.value.split(':')[1] }).toDate() })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="end" className="text-right">
+                End
+              </Label>
+              <Input
+                id="end"
+                type="time"
+                value={newEvent.end ? moment(newEvent.end).format('HH:mm') : ''}
+                onChange={(e) => setNewEvent({ ...newEvent, end: moment(newEvent.end).set({ hour: e.target.value.split(':')[0], minute: e.target.value.split(':')[1] }).toDate() })}
+                className="col-span-3"
+              />
+            </div>
+          </div>
+          <Dialog.Footer>
+            {newEvent.id && (
+              <Button variant="destructive" onClick={handleDeleteEvent}>
+                Delete
+              </Button>
+            )}
+            <Button onClick={handleSaveEvent}>Save</Button>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog>
+    </div>
+  )
+}
 
-// Styled components
+Scheduler.propTypes = {
+  isDarkTheme: PropTypes.bool.isRequired,
+}
 
-const StyledWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: ${({ isDarkTheme }) => isDarkTheme ? '#121212' : '#f9f9f9'};
-  color: ${({ isDarkTheme }) => isDarkTheme ? '#fff' : '#333'};
+export default Scheduler
 
-  .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 500px;
-    height: 700px;
-    padding: 20px;
-    margin: 20px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(33,150,243,.4), 0 4px 6px -4px rgba(33,150,243,.4);
-    border-radius: 10px;
-    background-color: ${({ isDarkTheme }) => isDarkTheme ? 'rgba(107, 110, 204, 0.7)' : 'linear-gradient(225deg, #FFFFFF, #85C1E9)'};
-  }
-  
-  .content h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-  }
-`;
-
-const TimeSlots = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const TimeSlot = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid ${({ isDarkTheme }) => isDarkTheme ? '#444' : '#ddd'};
-  border-radius: 5px;
-  background-color: ${({ isDarkTheme }) => isDarkTheme ? '#333' : '#f0f0f0'};
-
-  span {
-    font-weight: bold;
-    color: ${({ isDarkTheme }) => isDarkTheme ? '#fff' : '#333'};
-    cursor: pointer;
-  }
-`;
-
-const EventList = styled.div`
-  flex-grow: 1;
-  margin-left: 10px;
-`;
-
-const EventItem = styled.div`
-  padding: 5px 10px;
-  margin-top: 5px;
-  background-color: ${({ color }) => color};
-  color: white;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  width: ${({ duration }) => `${duration * 50}px`}; /* Simulate drag size change */
-  cursor: move;
-`;
-
-const EventInput = styled.input`
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid ${({ isDarkTheme }) => isDarkTheme ? '#444' : '#ccc'};
-  background-color: ${({ isDarkTheme }) => isDarkTheme ? '#222' : '#fff'};
-  color: ${({ isDarkTheme }) => isDarkTheme ? '#fff' : '#333'};
-`;
-
-const ColorPicker = styled.div`
-  margin-top: 10px;
-`;
-
-const ColorOptions = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-`;
-
-const ColorOption = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${({ color }) => color};
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-export default Scheduler;
