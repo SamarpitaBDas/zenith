@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Start from './ui/Start';  // Import Start component
-import Button from './ui/FullScreen';  // Import Button component
 
 const Pomodoro = ({ isDarkTheme }) => {
-  const [minutes, setMinutes] = useState(25);
+  const [minutes, setMinutes] = useState(55);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const [accumulatedTime, setAccumulatedTime] = useState(0); 
 
   const intervalRef = useRef(null);
 
@@ -18,11 +19,12 @@ const Pomodoro = ({ isDarkTheme }) => {
         if (seconds === 0) {
           if (minutes === 0) {
             if (isBreak) {
-              setMinutes(25);
+              setMinutes(55);
               setIsBreak(false);
             } else {
               setMinutes(5);
               setIsBreak(true);
+              setAccumulatedTime(prevTime => prevTime + (55 * 60)); // Update accumulated time after pomodoro
             }
             setSeconds(0);
           } else {
@@ -70,11 +72,13 @@ const Pomodoro = ({ isDarkTheme }) => {
 
         <div className="controls">
           <Start isRunning={isRunning} handleStartStop={handleStartStop} 
-          style={{
-            top:"40px",
-          }}/> 
+            style={{
+              top:"40px",
+            }}
+          />
         </div>
       </div>
+
     </StyledWrapper>
   );
 };
@@ -99,7 +103,7 @@ const StyledWrapper = styled.div`
       0 4px 6px -4px rgba(33, 150, 243, 0.4);
     border-radius: 10px;
     text-align: center;
-    color: ${({ isDarkTheme }) => (isDarkTheme ? '#fff' : '#000')};
+    color: ${({ isDarkTheme }) => (isDarkTheme ? '#fff' : '#fff')};
     font-family: 'Digital-7', sans-serif;
     position: relative;
   }

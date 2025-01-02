@@ -7,6 +7,8 @@ import TodoCard from '../components/tasks';
 import Scheduler from '../components/scheduler';
 import Pomodoro from '../components/pomodoro';
 import Tracker from '../components/tracker';
+import DateShowcaser from '../components/DateShowcaser';
+import TimerHistory from '../components/TimerHistory';
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -40,20 +42,42 @@ function HomePage() {
         }}
       >
         <TodoCard isDarkTheme={isDarkTheme} /> 
-        <Scheduler isDarkTheme={isDarkTheme} />
+        <Scheduler style={{
+          marginTop: '-20px',
+        }}
+        isDarkTheme={isDarkTheme} />
           <div 
           style={{
             position: 'absolute',
-            top: '20px',
-            left: '70%',
+            top:'10px',
+            left: '68%',
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '10px',
+            gap: '20px',
           }}>
-            <Pomodoro isDarkTheme={isDarkTheme} />
+            <Pomodoro isDarkTheme={isDarkTheme} 
+            style={{
+              top:'20px',
+            }}/>
             <Tracker isDarkTheme={isDarkTheme}/>
           </div>
+
+          <div
+          style={{
+            position: 'absolute',
+            top:'10px',
+            left: '90%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+          }}
+          >
+            <DateShowcaser isDarkTheme={isDarkTheme}/>
+            <TimerHistory isDarkTheme={isDarkTheme} />
+          </div>
+          
       </div>
 
       <div 
@@ -72,7 +96,7 @@ function HomePage() {
         className="navbar" 
         style={{
           position: 'absolute',
-          left:'50%',
+          left:'35%',
           bottom: 20,
           transform: 'translateX(-50%)', 
           zIndex: 5, 

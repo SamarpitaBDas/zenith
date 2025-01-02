@@ -4,8 +4,8 @@ import styled from 'styled-components';
 const Tracker = ({ isDarkTheme }) => {
   const [mood, setMood] = useState('neutral');
   const [habits, setHabits] = useState({
-    exercise: false,
-    read: false,
+    Schedule: false,
+    dont_overthink: false,
     meditate: false,
   });
 
@@ -66,7 +66,7 @@ const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     width: 400px;
     height: 560px;
     padding: 20px 1px;
@@ -74,19 +74,12 @@ const StyledWrapper = styled.div`
     text-align: center;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(33,150,243,.4), 0 4px 6px -4px rgba(33,150,243,.4);
+    box-shadow: 0 10px 15px -3px rgba(33, 150, 243, 0.4), 0 4px 6px -4px rgba(33, 150, 243, 0.4);
     border-radius: 10px;
-    background-color: ${({ isDarkTheme }) =>
+    background: ${({ isDarkTheme }) =>
       isDarkTheme
-        ? 'linear-gradient(45deg, rgba(4, 5, 29, 0.3) 0%, rgba(21, 27, 35, 1) 100%)'
+        ? 'linear-gradient(45deg, rgba(4, 5, 29, 0.8) 0%, rgba(21, 27, 35, 0.9) 100%)'
         : 'linear-gradient(45deg, #85C1E9, #FFFFFF)'};
-  }
-
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: ${({ isDarkTheme }) => (isDarkTheme ? '#fff' : '#333')};
-    margin-bottom: 20px;
   }
 
   .mood-section {

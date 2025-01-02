@@ -214,7 +214,8 @@ const StyledWrapper = styled.div`
     width: 550px;
     height: 700px;
     padding: 20px;
-    margin: 0 30px;
+    margin: 0 0px;
+    margin-top:-90px;
     text-align: center;
     position: relative;
     cursor: pointer;
