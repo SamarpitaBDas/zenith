@@ -3,12 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cra-template": "1.2.0",
     "react": "^18.0.0",
-    "react-big-calendar": "^1.17.1",
-    "react-calendar": "^5.1.0",
     "react-dom": "^18.0.0",
-    "react-scheduler": "^0.1.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.13",
     "web-vitals": "^4.2.4"
@@ -39,7 +35,5 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "keywords": [],
-  "author": "",
   "license": "ISC"
 }
