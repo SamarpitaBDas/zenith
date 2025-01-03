@@ -50,7 +50,7 @@ function HomePage() {
           style={{
             position: 'absolute',
             top:'10px',
-            left: '68%',
+            left: '66%',
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
@@ -66,8 +66,8 @@ function HomePage() {
           <div
           style={{
             position: 'absolute',
-            top:'10px',
-            left: '90%',
+            top:'55px',
+            left: '87%',
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
@@ -84,7 +84,7 @@ function HomePage() {
         style={{
           position: 'absolute',
           top: '20px', 
-          right: '20px',
+          right: '50px',
           zIndex: 10, 
         }}
       >
