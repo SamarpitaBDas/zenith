@@ -3,15 +3,16 @@ import styled from 'styled-components';
 
 const TimerHistory = ({ accumulatedTime, isDarkTheme }) => {
   const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
   return (
     <HistoryWrapper isDarkTheme={isDarkTheme}>
       <div className="history-card">
-        <h3>Accumulated Time</h3>
+        <h3>Total Work Time</h3>
         <p className="time-display">{formatTime(accumulatedTime)}</p>
       </div>
     </HistoryWrapper>
@@ -48,3 +49,4 @@ const HistoryWrapper = styled.div`
 `;
 
 export default TimerHistory;
+

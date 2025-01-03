@@ -25,7 +25,6 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 55px;
 
   .date-card {
     display: flex;

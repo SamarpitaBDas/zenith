@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import Start from './ui/Start';  // Import Start component
+import Start from './ui/Start';
+import TimerHistory from './TimerHistory';
 
 const Pomodoro = ({ isDarkTheme }) => {
   const [minutes, setMinutes] = useState(55);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
-  const [accumulatedTime, setAccumulatedTime] = useState(0); 
+  const [isLongBreak, setIsLongBreak] = useState(false);
+  const [breakCount, setBreakCount] = useState(0);
+  const [accumulatedTime, setAccumulatedTime] = useState(0);
 
   const intervalRef = useRef(null);
 
@@ -18,15 +19,7 @@ const Pomodoro = ({ isDarkTheme }) => {
       intervalRef.current = setInterval(() => {
         if (seconds === 0) {
           if (minutes === 0) {
-            if (isBreak) {
-              setMinutes(55);
-              setIsBreak(false);
-            } else {
-              setMinutes(5);
-              setIsBreak(true);
-              setAccumulatedTime(prevTime => prevTime + (55 * 60)); // Update accumulated time after pomodoro
-            }
-            setSeconds(0);
+            handleSessionEnd();
           } else {
             setMinutes((prevMinutes) => prevMinutes - 1);
             setSeconds(59);
@@ -40,17 +33,31 @@ const Pomodoro = ({ isDarkTheme }) => {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [isRunning, seconds, minutes, isBreak]);
+  }, [isRunning, seconds, minutes, isBreak, breakCount]);
 
-  const toggleFullScreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
+  const handleSessionEnd = () => {
+    if (isBreak) {
+      if (isLongBreak) {
+        setMinutes(55);
+        setIsBreak(false);
+        setIsLongBreak(false);
+        setBreakCount(0);
+      } else {
+        setMinutes(55);
+        setIsBreak(false);
+        setBreakCount((prevCount) => prevCount + 1);
       }
+    } else {
+      setAccumulatedTime((prevTime) => prevTime + 55 * 60);
+      if (breakCount === 3) {
+        setMinutes(20);
+        setIsLongBreak(true);
+      } else {
+        setMinutes(5);
+      }
+      setIsBreak(true);
     }
-    setIsFullScreen(!isFullScreen);
+    setSeconds(0);
   };
 
   const handleStartStop = () => {
@@ -62,38 +69,43 @@ const Pomodoro = ({ isDarkTheme }) => {
   };
 
   return (
-    <StyledWrapper isDarkTheme={isDarkTheme} isFullScreen={isFullScreen}>
+    <StyledWrapper isDarkTheme={isDarkTheme}>
       <div className="card">
         <div className="time-display">
           <div className="time">
             {formatTime(minutes)}:{formatTime(seconds)}
           </div>
         </div>
-
+        <div className="status">
+          {isBreak ? (isLongBreak ? 'Long Break' : 'Short Break') : 'Work'}
+        </div>
         <div className="controls">
-          <Start isRunning={isRunning} handleStartStop={handleStartStop} 
+          <Start
+            isRunning={isRunning}
+            handleStartStop={handleStartStop}
             style={{
-              top:"40px",
+              top: "40px",
             }}
           />
         </div>
       </div>
-
+      <TimerHistory accumulatedTime={accumulatedTime} isDarkTheme={isDarkTheme} />
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   .card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 400px;
+    width: 340px;
     height: 200px;
     background: ${({ isDarkTheme }) =>
       isDarkTheme
@@ -103,7 +115,7 @@ const StyledWrapper = styled.div`
       0 4px 6px -4px rgba(33, 150, 243, 0.4);
     border-radius: 10px;
     text-align: center;
-    color: ${({ isDarkTheme }) => (isDarkTheme ? '#fff' : '#fff')};
+    color: ${({ isDarkTheme }) => (isDarkTheme ? '#fff' : '#000')};
     font-family: 'Digital-7', sans-serif;
     position: relative;
   }
@@ -111,6 +123,11 @@ const StyledWrapper = styled.div`
   .time-display {
     font-size: 80px;
     font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .status {
+    font-size: 24px;
     margin-bottom: 20px;
   }
 

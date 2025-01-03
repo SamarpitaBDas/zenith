@@ -56,11 +56,11 @@ function HomePage() {
             flexDirection: 'column',
             gap: '20px',
           }}>
+            <DateShowcaser isDarkTheme={isDarkTheme}/>
             <Pomodoro isDarkTheme={isDarkTheme} 
             style={{
               top:'20px',
             }}/>
-            <Tracker isDarkTheme={isDarkTheme}/>
           </div>
 
           <div
@@ -74,8 +74,7 @@ function HomePage() {
             gap: '20px',
           }}
           >
-            <DateShowcaser isDarkTheme={isDarkTheme}/>
-            <TimerHistory isDarkTheme={isDarkTheme} />
+            <Tracker isDarkTheme={isDarkTheme}/>
           </div>
           
       </div>
