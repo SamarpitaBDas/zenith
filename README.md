@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Pomodoro Todo List Scheduler, Mood & Habit Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A productivity and wellness app built with React that helps users manage tasks using the Pomodoro Technique, track their daily moods, and maintain good habits. This app provides a simple and effective way to stay organized, focused, and motivated.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Pomodoro Timer**: Uses the Pomodoro Technique to help users break their work into intervals (typically 25 minutes of focused work followed by a 5-minute break).
+- **Todo List**: Track your daily tasks and mark them as complete when finished.
+- **Mood Tracker**: Record and track your mood each day to identify trends and improve your mental wellness.
+- **Habit Tracker**: Set daily goals for healthy habits and track your progress over time.
+- **Dark Mode**: A clean, user-friendly interface with a dark mode option to make it easier on the eyes during late-night usage.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: JavaScript library for building user interfaces.
+- **Styled Components**: For component-level styling in React.
+- **Local Storage**: Save tasks, mood, and habit progress between sessions.
+- **React Hooks**: Manage state and side effects within functional components.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+To run this project locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**:
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/yourusername/pomodoro-todo-mood-habit-tracker.git
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Navigate into the project directory**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   cd pomodoro-todo-mood-habit-tracker
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Install dependencies**:
 
-### `npm run eject`
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **Run the app**:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   The app will be available at `http://localhost:3000/`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+1. **Pomodoro Timer**:
+   - Set a task and start the timer.
+   - Work for 25 minutes, followed by a 5-minute break.
+   - After 4 cycles, take a longer break (15-30 minutes).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Todo List**:
+   - Add tasks to your to-do list.
+   - Mark tasks as complete by clicking the checkbox.
+   - Delete tasks by clicking the trash icon.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. **Mood Tracker**:
+   - Select your mood for the day from a list of options.
+   - Track your mood over time to analyze trends.
 
-### Code Splitting
+4. **Habit Tracker**:
+   - Set up habits you want to track (e.g., drinking water, exercising).
+   - Mark each habit as complete each day.
+   - View your progress over time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Screenshots
 
-### Analyzing the Bundle Size
+![Pomodoro Timer](screenshots/pomodoro-timer.png)
+*Pomodoro timer interface for time management.*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Todo List](screenshots/todo-list.png)
+*Track your tasks and mark them as completed.*
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Mood Tracker](screenshots/mood-tracker.png)
+*Track your mood and see how you're feeling over time.*
