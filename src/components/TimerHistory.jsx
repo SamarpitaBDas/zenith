@@ -28,7 +28,7 @@ const HistoryWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 350px;
+    width: 300px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(33, 150, 243, 0.4);
