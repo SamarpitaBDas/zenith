@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^18.0.0",
+    "react-big-calendar": "^1.17.1",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.13",
@@ -35,5 +36,7 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
+  "keywords": [],
+  "author": "",
   "license": "ISC"
 }
