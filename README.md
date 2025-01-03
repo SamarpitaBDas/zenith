@@ -1,5 +1,8 @@
 # Pomodoro Todo List Scheduler, Mood & Habit Tracker
 
+site link : https://zeniiith.netlify.app/
+# open in 80% zoom ( the site is not responsive)
+
 A productivity and wellness app built with React that helps users manage tasks using the Pomodoro Technique, track their daily moods, and maintain good habits. This app provides a simple and effective way to stay organized, focused, and motivated.
 
 ## Features
