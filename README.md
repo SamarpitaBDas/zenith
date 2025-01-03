@@ -70,11 +70,12 @@ To run this project locally, follow these steps:
 
 ## Screenshots
 
-![Pomodoro Timer](screenshots/pomodoro-timer.png)
+![Dark Theme](screenshots/ss2.png)
 *Pomodoro timer interface for time management.*
-
-![Todo List](screenshots/todo-list.png)
 *Track your tasks and mark them as completed.*
-
-![Mood Tracker](screenshots/mood-tracker.png)
 *Track your mood and see how you're feeling over time.*
+
+![Light Theme](screenshots/ss1.png)
+
+
+

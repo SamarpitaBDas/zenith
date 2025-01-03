@@ -7,7 +7,15 @@ const Tracker = ({ isDarkTheme }) => {
     Schedule: false,
     dont_overthink: false,
     meditate: false,
+    exercise: false,           
+    read_daily: false,         
+    drink_water: false,        
+    sleep_well: false,         
+    eat_healthy: false,        
+    practice_gratitude: false, 
+    take_breaks: false,        
   });
+  
 
   const toggleHabit = (habit) => {
     setHabits(prevHabits => ({

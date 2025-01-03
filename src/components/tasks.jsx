@@ -101,7 +101,7 @@ const StyledWrapper = styled.div`
     align-items: flex-start;
     width: 100%;
     margin-bottom: 20px;
-    max-height: 300px; 
+    max-height: 700px; 
     overflow-y: auto; 
     margin-left:40px;
   }

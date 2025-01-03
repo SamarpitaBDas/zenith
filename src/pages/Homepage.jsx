@@ -8,7 +8,7 @@ import Scheduler from '../components/scheduler';
 import Pomodoro from '../components/pomodoro';
 import Tracker from '../components/tracker';
 import DateShowcaser from '../components/DateShowcaser';
-import TimerHistory from '../components/TimerHistory';
+import Gratitude from '../components/Gratitude';
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -61,6 +61,7 @@ function HomePage() {
             style={{
               top:'20px',
             }}/>
+            <Gratitude isDarkTheme={isDarkTheme} />
           </div>
 
           <div
